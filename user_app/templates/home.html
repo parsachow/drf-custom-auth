@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>email auth</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <h1>You are Logged in</h1>
+        <a href="{% url 'logout' %}">Logout</a>
+        <h2>Users List</h2>
+    {%for user in users%}
+        <div class="card">
+            <div class="card-content">
+                <p>Id: {{ user.id }}</p>
+                <p>Email: {{ user.email }}</p>
+                <p>Name: {{ user.name }}</p>
+            </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+   {% else %}
+        <li><a href="{% url 'register' %}">Sign Up</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+    
+    {% endif %}
+
+
+  
+
+
+    <script>
+        const notificationSocket = new WebSocket(
+            "ws://127.0.0.1:8000/websocket/"
+        );
+        console.log('check');
+    
+    
+        notificationSocket.onopen = (e) => {
+            console.log('connected')
+            
+            
+        };
+     
+        notificationSocket.onmessage = (event) => {
+            console.log('working?')
+            console.log(event.data);
+        };
+        
+    
+    </script> 
+</body>
+
+</html>
